@@ -8,14 +8,14 @@ export const api = axios.create({
 });
 
 export const userApi = {
-  async getAllUsers(): Promise<User[]> {
+  async getUsers(): Promise<User[]> {
     const response = await api.get('/users');
     return response.data;
   },
 };
 
 export const postApi = {
-  async getPostsUser(id: number): Promise<Post[]> {
+  async getPosts(id: number): Promise<Post[]> {
     const response = await api.get(`/posts?userId=${id}`);
     return response.data;
   },
@@ -28,11 +28,11 @@ export const postApi = {
     return response.data;
   },
   async updatePost(id: number, post: Post): Promise<Post> {
-    const response = await api.put(`/comments?postId=${id}`, post);
+    const response = await api.put(`/posts/${id}`, post);
     return response.data;
   },
   async deletePost(id: number): Promise<Post> {
-    const response = await api.delete(`/comments?postId=${id}`);
+    const response = await api.delete(`/posts/${id}`);
     return response.data;
   },
 };

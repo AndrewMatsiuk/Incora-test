@@ -7,17 +7,14 @@ const initialState: UserState = {
   users: [],
 };
 
-const getUsers = createAsyncThunk(
-  'user/getAllUsers',
-  async (_, { dispatch }) => {
-    try {
-      const users = await userApi.getAllUsers();
-      dispatch(userActions.setUsers(users));
-    } catch (e) {
-      console.log(e);
-    }
+const getUsers = createAsyncThunk('user/getUsers', async (_, { dispatch }) => {
+  try {
+    const users = await userApi.getUsers();
+    dispatch(userActions.setUsers(users));
+  } catch (e) {
+    console.log(e);
   }
-);
+});
 
 const { reducer, actions } = createSlice({
   name: 'user',

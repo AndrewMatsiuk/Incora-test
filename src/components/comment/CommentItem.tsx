@@ -5,10 +5,7 @@ export const CommentItem: React.FC<{ comment: Comment }> = ({ comment }) => {
   const { id, name, email, body } = comment;
 
   return (
-    <Card hoverable title={id}>
-      <div style={{ textAlign: 'center', fontWeight: 'bolder', fontSize: 16 }}>
-        {email}
-      </div>
+    <Card hoverable title={email}>
       <div>{body}</div>
     </Card>
   );

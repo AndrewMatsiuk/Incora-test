@@ -1,4 +1,4 @@
-import { Layout, Button } from 'antd';
+import { Button, Layout } from 'antd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CreateItemPopup } from '../../components/popup/CreateItemPopup';
@@ -37,22 +37,38 @@ export const PostsPage: React.FC = () => {
       <Layout>
         <Header
           style={{
-            height: '10vh',
-            backgroundColor: '#221f1f',
+            height: '8vh',
             alignContent: 'center',
           }}
         >
-          <Button
-            type='primary'
-            htmlType='submit'
-            onClick={openCreateModal}
-            style={{ marginRight: '2%' }}
-          >
-            Create Post
-          </Button>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              style={{
+                color: 'white',
+                fontSize: 32,
+                display: 'inline',
+                marginRight: 40,
+              }}
+            >
+              Posts
+            </div>
+            <Button
+              type='primary'
+              htmlType='submit'
+              onClick={openCreateModal}
+              style={{ display: 'inline' }}
+              size={'large'}
+            >
+              Create Post
+            </Button>
+          </div>
         </Header>
         <Content
-          style={{ padding: '48px', height: '100%', backgroundColor: 'white' }}
+          style={{
+            padding: '48px',
+            height: '100%',
+            backgroundColor: '#A9C0E1',
+          }}
         >
           <PostList />
         </Content>

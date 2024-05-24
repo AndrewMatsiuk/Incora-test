@@ -8,8 +8,8 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<UsersPage />} />
-      <Route path='/posts/:userId' element={<PostsPage />} />
-      <Route path='/comments/:postId' element={<PostDetailsPage />} />
+      <Route path='/user/:userId' element={<PostsPage />} />
+      <Route path='/post/:postId' element={<PostDetailsPage />} />
     </Routes>
   );
 }

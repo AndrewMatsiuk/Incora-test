@@ -5,7 +5,6 @@ import { PostItem } from './PostItem';
 
 export const PostList: React.FC = () => {
   const posts = useSelector((state: RootState) => state.postReducer.posts);
-
   return (
     <Row gutter={[16, 16]}>
       {posts.map((post) => (

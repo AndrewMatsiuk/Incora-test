@@ -7,12 +7,14 @@ type Props = {
   visible: boolean;
   onClose: () => void;
   onSubmit: (value: Post) => void;
+  post?: Post;
 };
 
 export const CreateItemPopup: React.FC<Props> = ({
   visible,
   onClose,
   onSubmit,
+  post,
 }) => {
   const [form] = AntdFrom.useForm();
 
@@ -33,7 +35,7 @@ export const CreateItemPopup: React.FC<Props> = ({
       footer={null}
       onCancel={onClose}
     >
-      <Form form={form} onFinish={onFinish} />
+      <Form form={form} onFinish={onFinish} post={post} />
     </Modal>
   );
 };

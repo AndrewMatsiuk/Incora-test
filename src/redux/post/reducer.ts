@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { postApi } from '../../api';
 import { Comment } from '../../types/comment';
 import { Post } from '../../types/post';
-import { User } from '../../types/user';
+
 import { PostState } from '../states';
 
 const initialState: PostState = {
@@ -10,14 +10,13 @@ const initialState: PostState = {
   comments: [],
 };
 
-const getPostsUser = createAsyncThunk(
-  'post/getPostsUser',
-  async (payload: { user: User; navigate: Function }, { dispatch }) => {
+const getPosts = createAsyncThunk(
+  'post/getPosts',
+  async (payload: { userId: number }, { dispatch }) => {
     try {
-      const { id } = payload.user;
-      const posts = await postApi.getPostsUser(id);
+      const { userId } = payload;
+      const posts = await postApi.getPosts(+userId);
       dispatch(postActions.setPosts(posts));
-      payload.navigate(`/posts/:userId=${id}`);
     } catch (e) {
       console.log(e);
     }
@@ -50,11 +49,13 @@ const editPost = createAsyncThunk(
 
 const deletePost = createAsyncThunk(
   'post/deletePost',
-  async (payload: { post: Post }, { dispatch }) => {
+  async (payload: { post: Post; navigate: Function }, { dispatch }) => {
     try {
-      const { id } = payload.post;
-      await postApi.deletePost(id);
+      const { post, navigate } = payload;
+      await postApi.deletePost(post?.id);
+
       dispatch(postActions.setDeletePost(payload.post));
+      navigate(-1);
     } catch (e) {
       console.log(e);
     }
@@ -63,12 +64,11 @@ const deletePost = createAsyncThunk(
 
 const getPostComments = createAsyncThunk(
   'post/getPostComments',
-  async (payload: { post: Post; navigate: Function }, { dispatch }) => {
+  async (payload: { postId: number }, { dispatch }) => {
     try {
-      const { id } = payload.post;
-      const comments = await postApi.getPostComments(id);
+      const { postId } = payload;
+      const comments = await postApi.getPostComments(postId);
       dispatch(postActions.setComments(comments));
-      payload.navigate(`/comments/:postId=${id}`);
     } catch (e) {
       console.log(e);
     }
@@ -107,7 +107,7 @@ const { reducer, actions } = createSlice({
 export const postReducer = reducer;
 export const postActions = {
   ...actions,
-  getPostsUser,
+  getPosts,
   getPostComments,
   createPost,
   editPost,

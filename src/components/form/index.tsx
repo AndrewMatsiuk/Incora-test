@@ -9,7 +9,12 @@ type Props = {
 
 export const Form: React.FC<Props> = ({ form, onFinish, post }) => {
   return (
-    <AntdForm form={form} layout='vertical' onFinish={onFinish}>
+    <AntdForm
+      form={form}
+      layout='vertical'
+      onFinish={onFinish}
+      initialValues={post}
+    >
       <AntdForm.Item label='Title' name='title'>
         <Input defaultValue={post?.title} />
       </AntdForm.Item>

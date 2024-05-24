@@ -1,19 +1,28 @@
 import { Col, Row } from 'antd';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux';
-import { PostItem } from '../post/PostItem';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux';
+import { postActions } from '../../redux/post/reducer';
 import { CommentItem } from './CommentItem';
 
-export const CommentList: React.FC = () => {
+export const CommentList: React.FC<{ postId: number | null }> = ({
+  postId,
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
   const comments = useSelector(
     (state: RootState) => state.postReducer.comments
   );
-  const post = useSelector((state: RootState) => state.postReducer.posts);
+
+  useEffect(() => {
+    if (postId && typeof +postId === 'number') {
+      dispatch(postActions.getPostComments({ postId: +postId }));
+    }
+  }, [postId]);
+
   return (
     <div>
-      <PostItem post={post[comments[0].postId - 1]} isCommentsPage={false} />
       <div style={{ textAlign: 'center', fontSize: 24, fontWeight: 'bolder' }}>
-        Comments
+        Comments:
       </div>
       <Row gutter={[16, 16]}>
         {comments.map((comment) => (
