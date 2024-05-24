@@ -57,7 +57,7 @@ export const PostItem: React.FC<{
         </Button>
       ) : (
         <div style={{ marginTop: 15 }}>
-          <Button onClick={editPost} type='primary' style={{ marginRight: 40 }}>
+          <Button onClick={editPost} type='primary' style={{ marginRight: 20 }}>
             Edit
           </Button>
           <Button onClick={deletePost} type='primary'>
